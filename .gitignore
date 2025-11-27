@@ -1,0 +1,246 @@
+# =============================================================================
+# BinaryLLM .gitignore
+# Optimized for Python + Research + Cursor IDE
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+pytest_cache/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+.pyre/
+
+# -----------------------------------------------------------------------------
+# Virtual Environments
+# -----------------------------------------------------------------------------
+
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+Pipfile.lock
+
+# -----------------------------------------------------------------------------
+# Jupyter Notebooks
+# -----------------------------------------------------------------------------
+
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+profile_default/
+ipython_config.py
+
+# -----------------------------------------------------------------------------
+# IDEs and Editors
+# -----------------------------------------------------------------------------
+
+# Cursor / VSCode
+.cursor/
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Spyder
+.spyderproject
+.spyproject
+
+# -----------------------------------------------------------------------------
+# Operating System
+# -----------------------------------------------------------------------------
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*.directory
+
+# -----------------------------------------------------------------------------
+# Project-Specific
+# -----------------------------------------------------------------------------
+
+# Experiment runs and outputs (keep golden tests)
+runs/
+tmp/
+outputs/
+results/
+artifacts/
+!tests/data/phase1_golden/
+
+# Large data files
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+data/
+datasets/
+models/
+weights/
+checkpoints/
+
+# Logs (except golden logs)
+*.log
+logs/
+!tests/data/phase1_golden/*.jsonl
+
+# Resolved configs (generated)
+*_resolved.json
+config_phase1_resolved.json
+
+# Phase 2 raw research (not for public release)
+phase2_raw_research.md
+
+# Old README versions (keep main README.md only)
+README_PHASE1_ENTERPRISE.md
+README_PHASE1_ENTERPRISE_FINAL.md
+
+# Day-specific notes (internal)
+day_*/
+
+# -----------------------------------------------------------------------------
+# Documentation Build
+# -----------------------------------------------------------------------------
+
+docs/_build/
+site/
+.mkdocs/
+
+# -----------------------------------------------------------------------------
+# Secrets and Credentials
+# -----------------------------------------------------------------------------
+
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets.yaml
+secrets.json
+credentials.json
+
+# -----------------------------------------------------------------------------
+# Miscellaneous
+# -----------------------------------------------------------------------------
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Temporary files
+*.tmp
+*.temp
+.~*
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Profiling
+*.prof
+*.lprof
+
