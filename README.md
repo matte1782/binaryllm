@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🔢 BinaryLLM
 
@@ -7,8 +7,8 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests: 157 Passing](https://img.shields.io/badge/tests-157%20passing-brightgreen.svg)](#test-suite)
-[![Phase: 1 Complete](https://img.shields.io/badge/phase-1%20complete-success.svg)](#phase-1-overview)
-[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Phase: 1 Complete](https://img. shields.io/badge/phase-1%20complete-success.svg)](#phase-1-overview)
+[![Code Style: Black](https://img. shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 *A research-first framework exploring whether binary (1-bit) representations can serve as a viable computational substrate for LLM embeddings while preserving semantic structure.*
 
@@ -36,7 +36,7 @@ This repository implements **Phase 1** of the BinaryLLM research program—a det
 - 🏷️ **Tests** classification degradation with centroid classifiers
 - ✅ **Guarantees** full determinism and reproducibility
 
-### Why Binary Embeddings?
+### Why Binary Embeddings? 
 
 | Aspect | Float32 | Binary (1-bit) | Improvement |
 |--------|---------|----------------|-------------|
@@ -59,23 +59,23 @@ This repository implements **Phase 1** of the BinaryLLM research program—a det
 - Python ≥ 3.10
 - NumPy ≥ 1.24
 - PyYAML ≥ 6.0
-- SciPy ≥ 1.10 (for metrics)
+- SciPy ≥ 1. 10 (for metrics)
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/matte1782/binaryllm.git
+git clone https://github.com/matte1782/binaryllm. git
 cd binaryllm
 
 # Create virtual environment
-python -m venv .venv
+python -m venv . venv
 
 # Activate (Linux/macOS)
-source .venv/bin/activate
+source . venv/bin/activate
 
 # Activate (Windows)
-.venv\Scripts\activate
+. venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -130,9 +130,10 @@ BinaryLLM Phase 1 Architecture
 
 ```
 src/
+├── __init__.py              # Package initialization
 ├── core/                    # Dataset catalog & embedding containers
 │   ├── dataset_catalog.py   # Registry for datasets and encoders
-│   ├── datasets.py          # Dataset wrappers with validation
+│   ├── datasets. py          # Dataset wrappers with validation
 │   └── embeddings.py        # Float/Binary embedding containers
 │
 ├── quantization/            # Binary transformation pipeline
@@ -154,8 +155,8 @@ src/
 └── utils/
     ├── config.py            # YAML/JSON config loader + validation
     ├── logging.py           # Structured JSON logging (v2 schema)
-    ├── seed.py              # Global seed management
-    └── io.py                # File I/O helpers
+    ├── seed. py              # Global seed management
+    └── io. py                # File I/O helpers
 ```
 
 ### Key Design Principles
@@ -189,7 +190,7 @@ tasks:
   - classification
 embedding_files:
   - path/to/embeddings.npy
-classification_labels: path/to/labels.npy
+classification_labels: path/to/labels. npy
 output_dir: runs/my_experiment/
 ```
 
@@ -199,12 +200,12 @@ output_dir: runs/my_experiment/
 from src.experiments.runners.phase1_binary_embeddings import run_phase1_experiment
 
 # Run experiment
-result = run_phase1_experiment("path/to/config.yaml")
+result = run_phase1_experiment("path/to/config. yaml")
 
 # Check status
 if result["status"] == "success":
-    print(f"Cosine-Hamming Spearman: {result['similarity_metrics']['cosine_hamming_spearman']:.4f}")
-    print(f"Top-k Overlap: {result['retrieval_metrics']['topk_overlap']['k=3']:.4f}")
+    print(f"Cosine-Hamming Spearman: {result['similarity_metrics']['cosine_hamming_spearman']:. 4f}")
+    print(f"Top-k Overlap: {result['retrieval_metrics']['topk_overlap']['k=3']:. 4f}")
     print(f"Accuracy Delta: {result['classification_metrics']['accuracy_delta']:.4f}")
 else:
     print(f"Error at stage '{result['error']['stage']}': {result['error']['message']}")
@@ -215,7 +216,7 @@ else:
 ```python
 import numpy as np
 from src.core.dataset_catalog import get_dataset_spec, get_encoder_spec
-from src.variants.binary_embedding_engine import BinaryEmbeddingEngine
+from src. variants.binary_embedding_engine import BinaryEmbeddingEngine
 
 # Load specs
 encoder = get_encoder_spec("synthetic_encoder_4d")
@@ -232,8 +233,8 @@ engine = BinaryEmbeddingEngine(
 )
 
 # Run pipeline
-embeddings = np.random.randn(100, 4).astype(np.float32)
-labels = np.random.randint(0, 3, size=100)
+embeddings = np.random.randn(100, 4). astype(np. float32)
+labels = np.random. randint(0, 3, size=100)
 
 result = engine.run(
     embeddings,
@@ -246,7 +247,7 @@ result = engine.run(
 # Access binary codes
 binary_codes = result["binary_codes"]
 print(f"PM1 codes shape: {binary_codes['pm1'].shape}")     # (100, 64)
-print(f"Packed codes shape: {binary_codes['packed'].shape}") # (100, 1) for 64-bit
+print(f"Packed codes shape: {binary_codes['packed']. shape}") # (100, 1) for 64-bit
 ```
 
 ---
@@ -285,11 +286,11 @@ print(f"Packed codes shape: {binary_codes['packed'].shape}") # (100, 1) for 64-b
 ### Dependencies
 
 ```
-numpy>=1.24.0
-scipy>=1.10.0
+numpy>=1.24. 0
+scipy>=1.10. 0
 pyyaml>=6.0
-torch>=2.0.0  # Optional, for GPU metadata
-pytest>=7.0.0  # Development only
+torch>=2.0. 0  # Optional, for GPU metadata
+pytest>=7.0. 0  # Development only
 ```
 
 See `requirements.txt` for pinned versions.
@@ -307,7 +308,7 @@ See `requirements.txt` for pinned versions.
 - [x] Deterministic pipeline with golden tests
 - [x] Structured logging (Schema v2)
 
-### 🔜 Phase 2: Binary KV-Cache (Planned)
+### 🔄 Phase 2: Binary KV-Cache (In Progress)
 
 - [ ] Binary attention key/value representations
 - [ ] XNOR-popcount attention kernels
@@ -338,9 +339,10 @@ binaryllm/
 ├── CONTRIBUTORS.md           # Project contributors
 ├── requirements.txt          # Python dependencies
 ├── pyproject.toml            # Modern Python packaging
-├── .gitignore                # Git ignore rules
+├── . gitignore                # Git ignore rules
 │
 ├── src/                      # Source code
+│   ├── __init__.py           # Package initialization
 │   ├── core/                 # Core abstractions
 │   ├── quantization/         # Binarization pipeline
 │   ├── eval/                 # Evaluation metrics
@@ -349,17 +351,28 @@ binaryllm/
 │   └── utils/                # Utilities
 │
 ├── tests/                    # Test suite (157 tests)
-│   ├── data/
-│   │   └── phase1_golden/    # Golden regression artifacts
-│   └── test_*.py             # Test modules
+│   ├── __init__.py
+│   ├── test_*.py             # Test modules
+│   └── data/
+│       └── phase1_golden/    # Golden regression artifacts
 │
 ├── scripts/                  # Helper scripts
 │   └── generate_phase1_golden.py
 │
+├── phase_2/                  # Phase 2 research & planning
+│   ├── phase2_final_plan.md
+│   ├── research_log_phase2.md
+│   └── iteration_*. md        # Research iterations
+│
 └── docs/                     # Documentation
+    ├── README.md             # Documentation index
+    ├── TECHNICAL_REFERENCE.md
+    ├── binaryllm_report_v2.md
     ├── architecture/         # Architecture docs
-    ├── artifacts/            # Phase artifacts
-    └── papers_arxiv/         # Research papers
+    ├── engineering/          # Engineering docs
+    ├── papers_arxiv/         # Research papers
+    ├── progress/             # Progress tracking
+    └── validation/           # Validation docs
 ```
 
 ---
@@ -371,8 +384,8 @@ binaryllm/
 *University of Pavia, Italy*
 
 📧 **Contact:**
-- Personal: [matteo1782@gmail.com](mailto:matteo1782@gmail.com)
-- Academic: [matteo.panzeri01@universitadipavia.it](mailto:matteo.panzeri01@universitadipavia.it)
+- Personal: [matteo1782@gmail.com](mailto:matteo1782@gmail. com)
+- Academic: [matteo. panzeri01@universitadipavia.it](mailto:matteo. panzeri01@universitadipavia. it)
 
 ---
 
@@ -407,17 +420,16 @@ See [CONTRIBUTORS.md](CONTRIBUTORS.md) for contributor information.
 
 ## License
 
-This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License — see [LICENSE](LICENSE) for details. 
 
 ---
 
 <div align="center">
 
-**BinaryLLM** — Compressing knowledge, preserving meaning.
+**BinaryLLM** — Compressing knowledge, preserving meaning. 
 
-*Built with rigor. Designed for impact.*
+*Built with rigor.  Designed for impact.*
 
-⭐ Star this repo if you find it useful!
+⭐ Star this repo if you find it useful! 
 
 </div>
-]]>
