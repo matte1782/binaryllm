@@ -24,6 +24,10 @@ Phase 1 had a single objective:
 All functionality in Phase 1 is **batch-evaluation-only** (no serving, no latency SLA).
 Real-time / large-scale concerns are explicitly deferred to **Phase 2**.
 
+> **Note:** Phase 1 validates the pipeline using **synthetic 4-dimensional toy embeddings** only.
+> No real LLM encoder (e.g. sentence-transformers) is loaded or evaluated.
+> Integration with real encoder models is a Phase 2 concern.
+
 ---
 
 ### 1.2 Task Timeline (T1–T15)

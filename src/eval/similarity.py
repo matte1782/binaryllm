@@ -10,6 +10,7 @@ from __future__ import annotations
 from typing import Literal
 
 import numpy as np
+from scipy.stats import spearmanr as _scipy_spearmanr
 
 MatrixMode = Literal["cosine", "hamming"]
 
@@ -62,23 +63,14 @@ def hamming_distance_matrix(codes_01: np.ndarray) -> np.ndarray:
     return distances.astype(np.float32, copy=False)
 
 
-def _stable_rank_order(scores: np.ndarray, ascending: bool) -> tuple[np.ndarray, np.ndarray]:
-    """Return sorted order and ranks using lexsort for deterministic tie-breaking."""
-    indices = np.arange(scores.size)
-    if ascending:
-        order = np.lexsort((indices, scores))
-    else:
-        order = np.lexsort((indices, -scores))
-    ranks = np.empty_like(order)
-    ranks[order] = np.arange(order.size)
-    return order, ranks
-
-
 def spearman_correlation_from_matrices(
     cosine_matrix: np.ndarray,
     hamming_matrix: np.ndarray,
 ) -> float:
-    """Average Spearman correlation between cosine vs Hamming rankings."""
+    """Average Spearman correlation between cosine vs Hamming rankings.
+
+    Uses scipy.stats.spearmanr for correct tie handling.
+    """
     cos = np.asarray(cosine_matrix, dtype=np.float64)
     ham = np.asarray(hamming_matrix, dtype=np.float64)
     if cos.shape != ham.shape:
@@ -95,16 +87,10 @@ def spearman_correlation_from_matrices(
         mask[i] = False
         cos_scores = cos[i, mask]
         ham_scores = ham[i, mask]
-
-        cos_order, cos_ranks = _stable_rank_order(cos_scores, ascending=False)
-        ham_order, ham_ranks = _stable_rank_order(ham_scores, ascending=True)
-
-        diffs = cos_ranks - ham_ranks
-        denom = cos_scores.size * (cos_scores.size**2 - 1)
-        if denom == 0:
-            correlations.append(1.0)
-        else:
-            correlations.append(1.0 - (6.0 * np.sum(diffs**2)) / denom)
+        corr, _ = _scipy_spearmanr(cos_scores, -ham_scores)
+        if np.isnan(corr):
+            corr = 1.0  # constant input: all neighbors equidistant
+        correlations.append(corr)
 
     return float(np.mean(correlations))
 

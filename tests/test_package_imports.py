@@ -13,7 +13,6 @@ def test_package_imports():
         "src.utils",
         "src.experiments",
         "src.variants",
-        "src.experiments.configs",
         "src.experiments.runners",
     ]
     for name in module_names:

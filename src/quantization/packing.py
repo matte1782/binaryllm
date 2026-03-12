@@ -35,6 +35,10 @@ def pack_codes(codes_01: np.ndarray) -> np.ndarray:
     num_words = (code_bits + 63) // 64
     packed = np.zeros((n_rows, num_words), dtype=np.uint64)
 
+    # Performance note: This Python-level loop over bits is O(code_bits) and
+    # sufficient for Phase 1 toy dimensions. Vectorized packing (e.g. via
+    # np.packbits or bitwise array operations) would be needed for production
+    # dimensions but is deferred to Phase 2 as an optimization concern.
     for bit in range(code_bits):
         word_index = bit // 64
         bit_index = bit % 64

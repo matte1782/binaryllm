@@ -15,6 +15,7 @@ from typing import Dict
 
 import numpy as np
 import pytest
+from scipy.stats import spearmanr as _scipy_spearmanr
 
 from src.eval import similarity as sim
 
@@ -32,31 +33,20 @@ def similarity_snapshot() -> Dict[str, np.ndarray]:
 
 
 def _manual_average_spearman(cosine_matrix: np.ndarray, hamming_matrix: np.ndarray) -> float:
-    """Reference implementation to cross-check module output."""
+    """Reference implementation using scipy.stats.spearmanr."""
     n = cosine_matrix.shape[0]
+    cos64 = np.asarray(cosine_matrix, dtype=np.float64)
+    ham64 = np.asarray(hamming_matrix, dtype=np.float64)
     correlations: list[float] = []
     for i in range(n):
         mask = np.ones(n, dtype=bool)
         mask[i] = False
-        cos_scores = cosine_matrix[i, mask]
-        ham_scores = hamming_matrix[i, mask]
-        other_indices = np.arange(n)[mask]
-
-        cos_order = np.lexsort((other_indices, -cos_scores))
-        ham_order = np.lexsort((other_indices, ham_scores))
-
-        # ranks: position of each neighbor in the ordered list.
-        cos_ranks = np.empty_like(cos_order)
-        cos_ranks[cos_order] = np.arange(cos_order.size)
-        ham_ranks = np.empty_like(ham_order)
-        ham_ranks[ham_order] = np.arange(ham_order.size)
-
-        diffs = cos_ranks - ham_ranks
-        denom = cos_order.size * (cos_order.size**2 - 1)
-        if denom == 0:
-            correlations.append(1.0)
-        else:
-            correlations.append(1.0 - (6.0 * np.sum(diffs**2)) / denom)
+        cos_scores = cos64[i, mask]
+        ham_scores = ham64[i, mask]
+        corr, _ = _scipy_spearmanr(cos_scores, -ham_scores)
+        if np.isnan(corr):
+            corr = 1.0
+        correlations.append(corr)
     return float(np.mean(correlations))
 
 

@@ -115,7 +115,12 @@ def evaluate_classification(
     binary_codes_pm1: np.ndarray,
     labels: np.ndarray,
 ) -> ClassificationResult:
-    """Return accuracy/F1 metrics for float vs. binary features."""
+    """Return accuracy/F1 metrics for float vs. binary features.
+
+    Note: This evaluates on the same data used to compute centroids (in-sample).
+    There is no train/test split. Metrics may overestimate real-world performance.
+    A proper held-out evaluation is deferred to Phase 2.
+    """
 
     floats, binaries, lbls = _validate_inputs(float_embeddings, binary_codes_pm1, labels)
     floats = _normalize_rows(floats)
